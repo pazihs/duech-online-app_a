@@ -27,6 +27,7 @@ interface WordDisplayProps {
   wordId: number;
   initialComments: WordComment[];
   editorMode: boolean;
+  initialUsers: Array<{ id: number; username: string; role: string }>;
   craetedBy?: number;
   currentUserId: number | null;
   currentUserRole: string | null;
@@ -49,6 +50,7 @@ export function WordDisplay({
   initialComments,
   craetedBy,
   editorMode,
+  initialUsers,
   currentUserId,
   currentUserRole,
 }: WordDisplayProps) {
@@ -60,7 +62,7 @@ export function WordDisplay({
   const [lastSavedLemma, setLastSavedLemma] = useState(initialWord.lemma);
   const [status, setStatus] = useState<string>(initialStatus || 'draft');
   const [assignedTo, setAssignedTo] = useState<number | null>(initialAssignedTo || null);
-  const [users, setUsers] = useState<Array<{ id: number; username: string; role: string }>>([]);
+  const [users, setUsers] = useState<Array<{ id: number; username: string; role: string }>>(initialUsers);
 
   const [editingKey, setEditingKey] = useState<string | null>(null);
   const isEditing = (k: string) => editingKey === k;
@@ -75,6 +77,7 @@ export function WordDisplay({
   const isSAdmin = currentUserRole === 'superadmin';
   const isCoordinator= currentUserRole === 'coordinator';
 
+  console.log(users)
   // Editor can edit if:
   // - Superadmin → always allowed
   // - Admin → always allowed

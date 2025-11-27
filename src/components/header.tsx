@@ -70,8 +70,8 @@ export default function Header({ editorMode, initialUser = null }: HeaderProps) 
   const homeLink = buildHref('/');
   const title = editorMode ? 'DUECh Editor' : 'DUECh';
   const subtitle = editorMode
-    ? 'Editor del Diccionario de uso del español de Chile'
-    : 'Diccionario de uso del español de Chile';
+    ? 'Editor del Diccionario de Uso del Español de Chile'
+    : 'Diccionario de Uso del Español de Chile';
 
   const fetchUser = useCallback(async () => {
     try {
@@ -221,7 +221,7 @@ export default function Header({ editorMode, initialUser = null }: HeaderProps) 
                 </NavLink>
                 {editorMode && user && (user.role === 'admin' || user.role === 'superadmin') && (
                   <NavLink href={buildHref('/usuarios')} icon={UsersIcon} onClick={closeMenu}>
-                    Gestión de Usuarios
+                    Gestión de usuarios
                   </NavLink>
                 )}
                 {editorMode && (
@@ -232,7 +232,7 @@ export default function Header({ editorMode, initialUser = null }: HeaderProps) 
                     style={{ color: '#ffffff' }}
                   >
                     <GlobeIcon className="h-5 w-5" />
-                    <span className="hover:text-yellow-300">Diccionario Público</span>
+                    <span className="hover:text-yellow-300">Diccionario público</span>
                   </a>
                 )}
               </div>

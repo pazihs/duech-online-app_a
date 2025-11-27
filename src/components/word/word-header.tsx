@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect} from 'react';
 import Link from 'next/link';
 import InlineEditable from '@/components/word/inline-editable';
 import { SelectDropdown } from '@/components/common/dropdown';
@@ -11,6 +11,7 @@ import type { WordDefinition } from '@/lib/definitions';
 import { useUserRole } from '@/hooks/useUserRole';
 import { getLexicographerByRole } from '@/lib/search-utils';
 import { getStatusByRole } from '@/lib/search-utils';
+import { get } from 'http';
 interface WordHeaderProps {
   lemma: string;
   onLemmaChange: (value: string | null) => void;
@@ -82,6 +83,16 @@ export function WordHeader({
     [statusOptions, isAdmin, isCoordinator, isLexicographer]
   );
 
+  const assignedUserName = useMemo(() => {
+    if (!assignedTo) return "Sin asignar";
+    if (!users || users.length === 0) return "Cargando...";
+
+    const user = users.find((u) => String(u.id) === String(assignedTo));
+    return user?.username ?? "Usuario no encontrado";
+  }, [assignedTo, users]);
+  
+  console.log(users)
+
   return (
     <>
       {/* Breadcrumb Navigation */}
@@ -150,7 +161,7 @@ export function WordHeader({
                 options={userOptions}
                 selectedValue={assignedTo?.toString() ?? ''}
                 onChange={(value) => onAssignedToChange(value ? Number(value) : null)}
-                placeholder="Sin asignar"
+                placeholder={assignedTo?.toString() ?? 'Sin asignar'}
                 disabled={!(canAsigned || canActuallyEdit)}
               />
             </div>

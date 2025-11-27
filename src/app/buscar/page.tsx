@@ -7,6 +7,7 @@ export default async function SearchPageRoute() {
   const editorMode = await isEditorMode();
   const users = editorMode ? await getUsers() : [];
 
+  console.log(users);
   const user = await getSessionUser();
   const currentUserId = user ? Number(user.id) : null;
   const currentUserRole = user?.role ?? null;
